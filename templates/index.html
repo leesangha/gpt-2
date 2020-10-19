@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <h3>GPT-2 test(124M model)</h3>
+    <hr />
+</head>
+
+<body>
+    <input type="text" />
+    <button id="submit">Submit</button>
+</body>
+<script>
+    const formData = new FormData();
+    formData.append('message', 'this is message');
+    document.getElementById('submit').onclick = () => {
+        fetch("/predict", {
+                method: "POST",
+                body: formData
+            })
+            .then((response) => {
+                console.log('chekc');
+                console.log(response);
+            })
+    }
+</script>
+
+</html>

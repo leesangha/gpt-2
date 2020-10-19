@@ -1,0 +1,5 @@
+FROM alpine:3.7
+
+WORKDIR /app/models
+
+COPY models /app/models
