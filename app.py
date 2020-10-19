@@ -65,7 +65,7 @@ def interact_model(
                 generated += 1
                 text = enc.decode(out[i])
                 print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
-                
+
     return text.encode('ascii','ignore').decode('ascii')
 
 app = Flask(__name__, template_folder="templates", static_url_path="/static")
@@ -79,7 +79,7 @@ def main():
 def predict():
     try:
         result = fire.Fire(interact_model)
-        return result
+        return jsonify({"message": result}), 200
     except Exception as e:
         print(e)
 

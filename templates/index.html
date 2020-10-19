@@ -20,8 +20,9 @@
             })
             .then((response) => {
                 console.log('chekc');
-                console.log(response);
-            })
+                msg = response.clone().json();
+                console.log(msg);
+            });
     }
 </script>
 
