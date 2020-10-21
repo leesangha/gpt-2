@@ -2,28 +2,34 @@
 <html>
 
 <head>
-    <h3>GPT-2 test(124M model)</h3>
-    <hr />
+  <h3>GPT-2 test(124M model)</h3>
+  <hr />
 </head>
 
 <body>
+  <div>
     <input type="text" />
     <button id="submit">Submit</button>
-</body>
-<script>
+  </div>
+  <div id='output'>
+
+  </div>
+  <script>
     const formData = new FormData();
-    formData.append('message', 'this is message');
-    document.getElementById('submit').onclick = () => {
-        fetch("/predict", {
-                method: "POST",
-                body: formData
-            })
-            .then((response) => {
-                console.log('chekc');
-                msg = response.clone().json();
-                console.log(msg);
-            });
-    }
-</script>
+    const message = document.getElementById('text').value;
+    console.log(message);
+    formData.append("message", message);
+    document.getElementById("submit").onclick = () => {
+      fetch("/predict", {
+          method: "POST",
+          body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById('output').innerHTML = data;
+          console.log(data);
+        });
+    };
+  </script>
 
 </html>
