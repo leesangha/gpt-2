@@ -16,10 +16,11 @@
   </div>
   <script>
     const formData = new FormData();
-    const message = document.getElementById('text').value;
-    console.log(message);
-    formData.append("message", message);
+
     document.getElementById("submit").onclick = () => {
+      var message = document.getElementById('text').value;
+      console.log(message);
+      formData.append("message", message);
       fetch("/predict", {
           method: "POST",
           body: formData,
