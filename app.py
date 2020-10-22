@@ -13,6 +13,14 @@ from flask import Flask, render_template, flash, send_file, request, jsonify, ur
 import numpy as np
 from werkzeug.utils import secure_filename
 
+from queue import Empty,Queue
+import threading
+
+###################
+requests_queue=Queue()
+BATCH_SIZE = 1
+CHECK_INTERVAL = 0.1
+###################
 
 def makeModel(text,leng,k):
     model_name='774M'
@@ -70,6 +78,7 @@ def makeModel(text,leng,k):
     return text.encode('ascii','ignore').decode('ascii')
 
 
+
 app = Flask(__name__, template_folder="templates", static_url_path="/static")
 
 @app.route("/")
@@ -86,7 +95,7 @@ def predict():
     except Exception as e:
         print(e)
 
-        return jsonify({"message": "Error! "}), 400
+        return jsonify({"message": e}), 400
 
 
 
