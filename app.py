@@ -14,18 +14,19 @@ import numpy as np
 from werkzeug.utils import secure_filename
 
 
-raw_text=''
 def interact_model(
     model_name='774M',
     seed=None,
     nsamples=1,
     batch_size=1,
-    length=20,
+    length=40,
     temperature=1,
-    top_k=5,
+    top_k=40,
     top_p=1,
     models_dir='models',
+    raw_text='',
 ):
+    print('raw _text' +raw_text)
     models_dir = os.path.expanduser(os.path.expandvars(models_dir))
     if batch_size is None:
         batch_size = 1
@@ -56,11 +57,8 @@ def interact_model(
         ckpt = tf.train.latest_checkpoint(os.path.join(models_dir, model_name))
         saver.restore(sess, ckpt)
 
-        #raw_text = input("command >>>")
-        #raw_text='What is your name'
-        text = 'What is your name?'
-        print(type(text))
         print(type(raw_text))
+        print(raw_text)
         context_tokens = enc.encode(raw_text)
         generated = 0
         for _ in range(nsamples // batch_size):
@@ -84,14 +82,13 @@ def main():
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
-        raw_text=request.form["message"]
-        print(raw_text)
-        result = fire.Fire(interact_model)
+        text=request.form["message"]
+        result = fire.Fire(interact_model(raw_text=text))
         return jsonify({"message": result}), 200
     except Exception as e:
         print(e)
 
-        return jsonify({"message": "Error! Please upload another file"}), 400
+        return jsonify({"message": "Error! "}), 400
 
 
 
