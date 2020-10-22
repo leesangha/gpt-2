@@ -9,8 +9,8 @@
 <body>
   <div>
     <label>text</label><input type="text" id="text" />
-    <label>length</label><input type="number" id="length" min='0' max='30'/>
-    <label>top_k</label><input type="number" id="top_k" min='0' max='40'/>
+    <label>length</label><input type="number" id="length" min='0' max='30' />
+    <label>top_k</label><input type="number" id="top_k" min='0' max='40' />
     <button id="submit">Submit</button>
   </div>
   <div id='output'>
@@ -21,9 +21,19 @@
 
     document.getElementById("submit").onclick = () => {
       var message = document.getElementById('text').value;
-      document.getElementById('text').value='';
+      var length = document.getElementById('length').value;
+      var top_k = document.getElementById('top_k').value;
+      document.getElementById('text').value = '';
+      document.getElementById('length').value = 0;
+      document.getElementById('top_k').value = 0;
       console.log(message);
+      console.log(length);
+      console.log(top_k);
+
       formData.append("message", message);
+      formData.append("length", length);
+      formData.append("top_k", top_k);
+
       fetch("/predict", {
           method: "POST",
           body: formData,
