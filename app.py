@@ -14,19 +14,18 @@ import numpy as np
 from werkzeug.utils import secure_filename
 
 
-def interact_model(
-    model_name='774M',
-    seed=None,
-    nsamples=1,
-    batch_size=1,
-    length=40,
-    temperature=1,
-    top_k=40,
-    top_p=1,
-    models_dir='models',
-    raw_text='',
-):
-    print('raw _text' +raw_text)
+def makeModel(text,leng,k):
+    model_name='774M'
+    seed=None
+    nsamples=1
+    batch_size=1
+    length=60
+    temperature=1
+    top_k=40
+    top_p=1
+    models_dir='models'
+    raw_text=text
+
     models_dir = os.path.expanduser(os.path.expandvars(models_dir))
     if batch_size is None:
         batch_size = 1
@@ -56,9 +55,7 @@ def interact_model(
         saver = tf.train.Saver()
         ckpt = tf.train.latest_checkpoint(os.path.join(models_dir, model_name))
         saver.restore(sess, ckpt)
-
-        print(type(raw_text))
-        print(raw_text)
+       
         context_tokens = enc.encode(raw_text)
         generated = 0
         for _ in range(nsamples // batch_size):
@@ -69,8 +66,9 @@ def interact_model(
                 generated += 1
                 text = enc.decode(out[i])
                 print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
-
+                print(text)
     return text.encode('ascii','ignore').decode('ascii')
+
 
 app = Flask(__name__, template_folder="templates", static_url_path="/static")
 
@@ -83,7 +81,7 @@ def main():
 def predict():
     try:
         text=request.form["message"]
-        result = fire.Fire(interact_model(raw_text=text))
+        result=makeModel(text,40,40)
         return jsonify({"message": result}), 200
     except Exception as e:
         print(e)
