@@ -17,9 +17,8 @@
 
   </div>
   <script>
-    const formData = new FormData();
-
     document.getElementById("submit").onclick = () => {
+      const formData = new FormData();
       var message = document.getElementById('text').value;
       var length = document.getElementById('length').value;
       var top_k = document.getElementById('top_k').value;
@@ -42,6 +41,7 @@
         .then((data) => {
           document.getElementById('output').innerHTML = data.message;
           console.log(data.message);
+          formData = new FormData();
         });
     };
   </script>
