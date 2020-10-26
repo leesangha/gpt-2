@@ -34,7 +34,7 @@ def makeModel(text,leng,k):
         top_k=40
         top_p=1
         models_dir='models'
-        raw_text=text
+        raw_text = text
 
         models_dir = os.path.expanduser(os.path.expandvars(models_dir))
         if batch_size is None:
@@ -65,7 +65,8 @@ def makeModel(text,leng,k):
             saver = tf.train.Saver()
             ckpt = tf.train.latest_checkpoint(os.path.join(models_dir, model_name))
             saver.restore(sess, ckpt)
-        
+
+            print('raw_text in make model      :  '+raw_text)
             context_tokens = enc.encode(raw_text)
             generated = 0
             for _ in range(nsamples // batch_size):
@@ -137,7 +138,7 @@ def predict():
         text=request.form["message"]
         length=request.form["length"]
         top_k=request.form["top_k"]
-        print('receive' + text +' ' + length + ' ' + top_k)
+        print('receive  ' + text +' ' + length + ' ' + top_k)
 
         req={"input":[text,40,40]}
         requests_queue.put(req)
