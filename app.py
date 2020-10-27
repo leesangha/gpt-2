@@ -131,7 +131,7 @@ def predict():
         global status
         if status ==1:
             return jsonify({"message":"Too Many Requests"}),429
-        print(requests_queue.qsize())
+        
         if requests_queue.qsize() >=1:
             return jsonify({"message":"Too Many Requests"}),429
         
