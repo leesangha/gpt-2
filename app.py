@@ -23,6 +23,7 @@ BATCH_SIZE = 1
 CHECK_INTERVAL = 0.1
 ###################
 status=0
+
 def makeModel(text,leng,k):
     try:
         model_name='774M'
@@ -128,6 +129,7 @@ def main():
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
+        print('predict')
         global status
         if status ==1:
             return jsonify({"message":"Too Many Requests"}),429
