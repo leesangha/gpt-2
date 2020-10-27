@@ -29,9 +29,9 @@ def makeModel(text,leng,k):
         seed=None
         nsamples=1
         batch_size=1
-        length=60
+        length=int(leng)
         temperature=1
-        top_k=40
+        top_k=int(k)
         top_p=1
         models_dir='models'
         raw_text = text
@@ -140,9 +140,8 @@ def predict():
         top_k=request.form["top_k"]
         print('receive  ' + text +' ' + length + ' ' + top_k)
 
-        req={"input":[text,40,40]}
+        req={"input":[text,length,top_k]}
         requests_queue.put(req)
-        #result=makeModel(text,40,40)
 
         #Thread output response
         while "output" not in req:
