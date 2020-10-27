@@ -22,7 +22,7 @@ requests_queue=Queue()
 BATCH_SIZE = 1
 CHECK_INTERVAL = 0.1
 ###################
-status=0
+#status=0
 
 def makeModel(text,leng,k):
     try:
@@ -102,8 +102,8 @@ def handle_requests_by_batch():
 
             for request in requests_batch:
                 print('run')
-                global status
-                status=1
+                #global status
+                #status=1
                 batch_outputs.append(
                     makeModel(request["input"][0],request["input"][1],request["input"][2])
                 )
@@ -130,9 +130,9 @@ def main():
 def predict():
     try:
         print('predict')
-        global status
-        if status ==1:
-            return jsonify({"message":"Too Many Requests"}),429
+        #global status
+        #if status ==1:
+        #    return jsonify({"message":"Too Many Requests"}),429
         
         if requests_queue.qsize() >=1:
             return jsonify({"message":"Too Many Requests"}),429
@@ -151,7 +151,7 @@ def predict():
 
         if req["output"] == 500:
             return jsonify({"error": "Error output is something wrong"}), 500
-        status=0
+        #status=0
         result=text+req["output"]
         return jsonify({"message": result}), 200
 
