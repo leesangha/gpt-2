@@ -36,7 +36,7 @@ def makeModel(text,leng,k):
         top_p=1
         models_dir='models'
         raw_text = text
-
+        print('makeModel')
         models_dir = os.path.expanduser(os.path.expandvars(models_dir))
         if batch_size is None:
             batch_size = 1
