@@ -26,7 +26,7 @@ CHECK_INTERVAL = 0.1
 
 def makeModel(text,leng,k):
     try:
-        model_name='774M'
+        model_name='124M'
         seed=None
         nsamples=1
         batch_size=1
@@ -37,6 +37,7 @@ def makeModel(text,leng,k):
         models_dir='models'
         raw_text = text
         print('makeModel')
+        
         models_dir = os.path.expanduser(os.path.expandvars(models_dir))
         if batch_size is None:
             batch_size = 1
