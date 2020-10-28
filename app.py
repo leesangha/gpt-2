@@ -26,7 +26,7 @@ CHECK_INTERVAL = 0.1
 
 def makeModel(text,leng,k):
     try:
-        model_name='774M'
+        model_name='124M'
         seed=None
         nsamples=1
         batch_size=1
